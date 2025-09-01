@@ -1,18 +1,1020 @@
-# wordzest.github.io
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WordZest - English Learning App for iOS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Nunito', sans-serif;
+        }
+
+        :root {
+            --primary: #7B68EE;
+            --secondary: #9370DB;
+            --accent: #6A5ACD;
+            --light: #F0E6FF;
+            --dark: #4B0082;
+            --success: #5ACD6A;
+            --warning: #FFD700;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--light) 0%, #fff 100%);
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            padding: 15px 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: slideDown 0.5s ease;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-weight: 800;
+            font-size: 24px;
+        }
+
+        .logo-icon {
+            font-size: 32px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            padding: 8px 15px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin-bottom: 50px;
+            animation: fadeIn 1s ease;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-image {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            color: var(--dark);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .app-store-badge {
+            width: 180px;
+            margin-top: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .app-store-badge:hover {
+            transform: scale(1.05);
+        }
+
+        .iphone-mockup {
+            width: 300px;
+            filter: drop-shadow(0 15px 20px rgba(0, 0, 0, 0.2));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Features Section */
+        .features {
+            text-align: center;
+            margin: 60px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 50px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: var(--primary);
+            font-size: 30px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        /* App Demo Section */
+        .app-demo {
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            border-radius: 20px;
+            padding: 50px;
+            margin: 60px 0;
+            color: white;
+            text-align: center;
+        }
+
+        .app-demo h2 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 20px;
+        }
+
+        .vocab-card {
+            background: linear-gradient(135deg, #7B68EE 0%, #6A5ACD 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+            animation: pulse 2s infinite;
+        }
+
+        .word {
+            font-size: 36px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .translation {
+            font-size: 20px;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+
+        .example {
+            font-style: italic;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .card-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border-radius: 50px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+
+        .btn-outline:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        .progress-container {
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: var(--light);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            border-radius: 5px;
+            width: 75%;
+            position: relative;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .speech-score {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: conic-gradient(var(--success) 75%, var(--light) 0);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .score-inner {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--success);
+        }
+
+        .score-text {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .dictionary {
+            grid-column: span 2;
+        }
+
+        .search-box {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid var(--light);
+            border-radius: 50px 0 0 50px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .search-btn {
+            padding: 0 25px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0 50px 50px 0;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .word-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .word-item {
+            background: var(--light);
+            padding: 15px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .word-item:hover {
+            background: var(--secondary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .word-item .word {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .word-item .translation {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 0;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            margin: 60px 0;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .testimonial-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            position: relative;
+        }
+
+        .testimonial-card i {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 40px;
+            color: var(--light);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+        }
+
+        .author-name {
+            font-weight: 700;
+            color: var(--dark);
+        }
+
+        /* App Screenshots */
+        .screenshots {
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        .screenshot-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .screenshot {
+            width: 220px;
+            border-radius: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .screenshot:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Download Section */
+        .download {
+            text-align: center;
+            padding: 80px 0;
+            background: linear-gradient(to bottom, var(--light), white);
+            border-radius: 20px;
+            margin: 60px 0;
+        }
+
+        .download h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .download p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            color: #555;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--primary);
+            font-weight: 600;
+            margin-top: 40px;
+            border-top: 1px solid var(--light);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .footer-links a {
+            color: var(--secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--dark);
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .social-icons a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(123, 104, 238, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(123, 104, 238, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(123, 104, 238, 0);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive design */
+        @media (max-width: 900px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .dictionary {
+                grid-column: span 1;
+            }
+            
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .word-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .iphone-mockup {
+                width: 250px;
+            }
+        }
+    </style>
+</head>
 <body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-language logo-icon"></i>
+                <span>WordZest</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Features</a></li>
+                    <li><a href="#">Download</a></li>
+                    <li><a href="#">Support</a></li>
+                </ul>
+            </nav>
+            <div class="user-info">
+                <div class="streak">
+                    <i class="fas fa-fire"></i>
+                    <span>Learn English</span>
+                </div>
+            </div>
+        </header>
 
-<h1>This is heading 1</h1>
-<p>This is some text.</p>
-<hr>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Master English with <span style="color: var(--primary);">WordZest</span> for iOS</h1>
+                <p>Build vocabulary, improve pronunciation, and track your progress with our fun, game-like approach to English learning. Now available exclusively on the App Store.</p>
+                <button class="btn btn-primary"><i class="fas fa-download"></i> Download Now</button>
+                <div>
+                    <img src="https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg" alt="Download on the App Store" class="app-store-badge">
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="https://ik.imagekit.io/duxjkq2vi/1.png?updatedAt=1756745329837" alt="WordZest App" class="iphone-mockup">
+            </div>
+        </section>
 
-<h2>This is heading 2</h2>
-<p>This is some other text.</p>
-<hr>
+        <section class="features">
+            <h2 class="section-title">App Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <h3>Vocabulary Builder</h3>
+                    <p>Learn new English words with interactive flashcards and spaced repetition for better retention.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-microphone"></i>
+                    </div>
+                    <h3>Speech Scoring</h3>
+                    <p>Improve your English pronunciation with our advanced speech recognition technology.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3>Daily Recap</h3>
+                    <p>Reinforce what you've learned with personalized daily review sessions.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>Built-in Dictionary</h3>
+                    <p>Access definitions, examples, and audio pronunciations for thousands of English words.</p>
+                </div>
+            </div>
+        </section>
 
-<h2>This is heading 2</h2>
-<p>This is some other text.</p>
+        <section class="screenshots">
+            <h2 class="section-title">App Screenshots</h2>
+            <div class="screenshot-container">
+                <img src="https://ik.imagekit.io/duxjkq2vi/1.png?updatedAt=1756745329837" alt="WordZest Screenshot 1" class="screenshot">
+                <img src="https://ik.imagekit.io/duxjkq2vi/2.png?updatedAt=1756745329732" alt="WordZest Screenshot 2" class="screenshot">
+                <img src="https://ik.imagekit.io/duxjkq2vi/3.png?updatedAt=1756745329771" alt="WordZest Screenshot 3" class="screenshot">
+                <img src="https://ik.imagekit.io/duxjkq2vi/4.png?updatedAt=1756745329624" alt="WordZest Screenshot 4" class="screenshot">
+                <img src="https://ik.imagekit.io/duxjkq2vi/5.png?updatedAt=1756745329759" alt="WordZest Screenshot 5" class="screenshot">
+                <img src="https://ik.imagekit.io/duxjkq2vi/6.png?updatedAt=1756745329696" alt="WordZest Screenshot 6" class="screenshot">
+            </div>
+        </section>
 
+        <section class="app-demo">
+            <h2>Experience WordZest</h2>
+            <div class="dashboard">
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Vocabulary Fresh Card</h2>
+                        <div class="card-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                    </div>
+                    <div class="vocab-card">
+                        <div class="word">Eloquent</div>
+                        <div class="translation">Fluent and persuasive in speaking or writing</div>
+                        <div class="example">"Her eloquent speech moved the entire audience."</div>
+                        <div class="card-buttons">
+                            <button class="btn btn-outline">Skip</button>
+                            <button class="btn btn-primary">Know</button>
+                        </div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress"></div>
+                        </div>
+                        <div class="progress-info">
+                            <span>Today: 15/20 words</span>
+                            <span>75%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Speech Score</h2>
+                        <div class="card-icon">
+                            <i class="fas fa-microphone"></i>
+                        </div>
+                    </div>
+                    <div class="speech-score">
+                        <div class="score-circle">
+                            <div class="score-inner">87%</div>
+                        </div>
+                        <div class="score-text">Your pronunciation is good!</div>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-microphone"></i> Practice Now
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Daily Recap</h2>
+                        <div class="card-icon">
+                            <i class="fas fa-sync-alt"></i>
+                        </div>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress" style="width: 60%;"></div>
+                        </div>
+                        <div class="progress-info">
+                            <span>Recap Progress: 12/20 words</span>
+                            <span>60%</span>
+                        </div>
+                    </div>
+                    <div class="card-buttons" style="justify-content: center; margin-top: 20px;">
+                        <button class="btn btn-primary">Start Recap</button>
+                    </div>
+                </div>
+
+                <div class="card dictionary">
+                    <div class="card-header">
+                        <h2 class="card-title">Dictionary</h2>
+                        <div class="card-icon">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                    </div>
+                    <div class="search-box">
+                        <input type="text" class="search-input" placeholder="Search for an English word...">
+                        <button class="search-btn"><i class="fas fa-search"></i></button>
+                    </div>
+                    <div class="word-list">
+                        <div class="word-item">
+                            <div class="word">Serendipity</div>
+                            <div class="translation">The occurrence of events by chance in a happy or beneficial way</div>
+                        </div>
+                        <div class="word-item">
+                            <div class="word">Ephemeral</div>
+                            <div class="translation">Lasting for a very short time</div>
+                        </div>
+                        <div class="word-item">
+                            <div class="word">Resilient</div>
+                            <div class="translation">Able to recover quickly from difficult conditions</div>
+                        </div>
+                        <div class="word-item">
+                            <div class="word">Ubiquitous</div>
+                            <div class="translation">Present, appearing, or found everywhere</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="testimonials">
+            <h2 class="section-title">What Users Say</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-right"></i>
+                    <p class="testimonial-text">"WordZest has made learning English vocabulary so much fun! The speech recognition is incredibly accurate and the daily recaps really help with retention."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">JD</div>
+                        <div>
+                            <div class="author-name">Jennifer Davis</div>
+                            <div>Spanish Speaker</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-right"></i>
+                    <p class="testimonial-text">"I've tried many English learning apps, but WordZest stands out with its beautiful design and effective learning system. The vocabulary builder is fantastic!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">MR</div>
+                        <div>
+                            <div class="author-name">Michael Rodriguez</div>
+                            <div>French Speaker</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <i class="fas fa-quote-right"></i>
+                    <p class="testimonial-text">"As a busy professional, I love being able to practice during my commute. The app is intuitive and the purple theme is so pleasing to the eyes!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">SL</div>
+                        <div>
+                            <div class="author-name">Sarah Johnson</div>
+                            <div>German Speaker</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="download">
+            <h2>Ready to improve your English?</h2>
+            <p>Download WordZest now from the App Store and begin learning in a fun, effective way!</p>
+            <button class="btn btn-primary" style="padding: 15px 30px; font-size: 1.2rem;">
+                <i class="fas fa-download"></i> Download for iOS
+            </button>
+            <div>
+                <img src="https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg" alt="Download on the App Store" class="app-store-badge" style="margin-top: 30px;">
+            </div>
+        </section>
+
+        <footer>
+            <div class="logo" style="color: var(--primary); justify-content: center; margin-bottom: 20px;">
+                <i class="fas fa-language logo-icon"></i>
+                <span>WordZest</span>
+            </div>
+            <div class="footer-links">
+                <a href="#">Home</a>
+                <a href="#">Features</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Support</a>
+            </div>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <p>© 2023 WordZest. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Simple animations and interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Vocab card animation
+            const vocabCard = document.querySelector('.vocab-card');
+            setInterval(() => {
+                vocabCard.style.animation = 'none';
+                setTimeout(() => {
+                    vocabCard.style.animation = 'pulse 2s infinite';
+                }, 10);
+            }, 4000);
+            
+            // Know button functionality
+            const knowBtn = document.querySelector('.card-buttons .btn-primary');
+            knowBtn.addEventListener('click', function() {
+                this.innerHTML = 'Checking...';
+                this.style.background = 'var(--success)';
+                
+                setTimeout(() => {
+                    this.innerHTML = 'Know';
+                    this.style.background = '';
+                    
+                    // Change the word (in a real app, this would come from an API)
+                    const words = [
+                        {word: 'Ubiquitous', translation: 'Present, appearing, or found everywhere', example: '"Smartphones have become ubiquitous in modern society."'},
+                        {word: 'Resilient', translation: 'Able to recover quickly from difficult conditions', example: '"She showed how resilient she was by bouncing back from failure."'},
+                        {word: 'Ephemeral', translation: 'Lasting for a very short time', example: '"The beauty of cherry blossoms is ephemeral, lasting only a week or two."'},
+                        {word: 'Serendipity', translation: 'The occurrence of events by chance in a happy way', example: '"Finding that rare book was pure serendipity."'}
+                    ];
+                    
+                    const randomWord = words[Math.floor(Math.random() * words.length)];
+                    
+                    document.querySelector('.word').textContent = randomWord.word;
+                    document.querySelector('.translation').textContent = randomWord.translation;
+                    document.querySelector('.example').textContent = randomWord.example;
+                }, 1000);
+            });
+            
+            // Animate elements on scroll
+            const animateOnScroll = function() {
+                const elements = document.querySelectorAll('.feature-card, .testimonial-card, .screenshot');
+                
+                elements.forEach(element => {
+                    const position = element.getBoundingClientRect().top;
+                    const screenPosition = window.innerHeight / 1.3;
+                    
+                    if(position < screenPosition) {
+                        element.style.opacity = 1;
+                        element.style.transform = 'translateY(0)';
+                    }
+                });
+            };
+            
+            // Set initial state for animation
+            const features = document.querySelectorAll('.feature-card, .testimonial-card, .screenshot');
+            features.forEach(card => {
+                card.style.opacity = 0;
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'all 0.5s ease';
+            });
+            
+            window.addEventListener('scroll', animateOnScroll);
+            // Initial check
+            animateOnScroll();
+        });
+    </script>
 </body>
 </html>
